@@ -45,7 +45,7 @@ function collapseTextNodes(collapseConfig, nodes) {
     const parent = firstNode.parentNode
     const fragment = getFragmetWithCollapsedText(text, collapseConfig)
     // Add click listener
-    fragment.querySelectorAll('div.hc-collapse-header').forEach(headerElement => {
+    fragment.querySelectorAll('span.hc-collapse-header').forEach(headerElement => {
       headerElement.addEventListener('click', toggleCollapse)
     })
     // Insert fragment before first node and then remove all text nodes
@@ -68,7 +68,7 @@ function toggleCollapse(event) {
 function getFragmetWithCollapsedText(text, config) {
   const regex = new RegExp(config.startRegEx + "((?:.|\n)*?)" + config.stopRegEx, "g");
   const html = text.replace(regex, function (match) {
-    return createCollapseBlock(config.title, match, config.color);
+    return createCollapseBlock(match.substring(0,60), match.substring(60), config.color);
   });
 
   // Create fragment with html
@@ -86,6 +86,6 @@ function getFragmetWithCollapsedText(text, config) {
 
 const createCollapseBlock = function (title, body, color) {
   // No whitespaces to avoid layout issues in pre elements
-  let element = `<div class="hc-collapsed" style="background-color: ${color}"><div class="hc-collapse-header">${title}</div><div class="hc-collapse-body hidden">${body}</div></div>`
+  let element = `<span class="hc-collapsed" style="background-color: ${color}"><span class="hc-collapse-header">${title}</span><span class="hc-collapse-body hidden">${body}</span></span>`
   return element
 };

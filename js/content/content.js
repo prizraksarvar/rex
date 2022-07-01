@@ -45,7 +45,7 @@ function getProfiles() {
 function loadExtension(profiles) {
   const listOfProfilesScript = document.createElement('script');
   let profileJSON = JSON.stringify(profiles, backslashReplacer);
-  listOfProfilesScript.text = "window.ext_rex_profile_list = JSON.parse('" + profileJSON + "');"
+  listOfProfilesScript.text = "window.ext_rex_profile_list = JSON.parse('" + profileJSON.replaceAll('\\', '\\\\') + "');console.log('window.ext_rex_profile_list loaded');"
   document.head.appendChild(listOfProfilesScript);
   const script = document.createElement('script')
   script.setAttribute("type", "module")

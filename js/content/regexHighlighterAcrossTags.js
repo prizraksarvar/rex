@@ -113,8 +113,10 @@ function replaceNodeWithHighlightedMatch(affectedNode, highlightWrapperNode, cha
   const parent = affectedNode.node.parentNode
   const fragment = document.createDocumentFragment()
   newNodes.forEach(node => fragment.appendChild(node))
-  parent.insertBefore(fragment, affectedNode.node)
-  parent.removeChild(affectedNode.node)
+  if (parent) {
+      parent.insertBefore(fragment, affectedNode.node)
+      parent.removeChild(affectedNode.node)
+  }
 }
 
 
